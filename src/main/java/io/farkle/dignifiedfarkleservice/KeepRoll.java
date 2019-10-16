@@ -13,7 +13,7 @@ public class KeepRoll {
   }
 
   public static int rerollers(int[] receiveDice) {
-    int n = receiveDice.length
+    int n = receiveDice.length;
     return n;
   }
 

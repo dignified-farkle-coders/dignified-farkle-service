@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Wed Oct 16 16:39:45 MDT 2019:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-016d-d6ba-2066-00000b68c460 
+on database directory memory:/Users/tielah/Desktop/bootcamp/projects/dignified-farkle-service/testdb with class loader sun.misc.Launcher$AppClassLoader@18b4aac2 
+Loaded from file:/Users/tielah/.m2/repository/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
+java.vendor=Amazon.com Inc.
+java.runtime.version=1.8.0_222-b10
+user.dir=/Users/tielah/Desktop/bootcamp/projects/dignified-farkle-service
+os.name=Mac OS X
+os.arch=x86_64
+os.version=10.14.6
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''

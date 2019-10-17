@@ -1,7 +1,7 @@
-package io.farkle.dignifiedfarkleservice;
+package io.farkle.dignifiedfarkleservice.model;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class KeepRoll {
 
@@ -17,11 +17,6 @@ public class KeepRoll {
     return n;
   }
 
-  public static void main(String[] args) {
-
-
-    KeepRoll.keepers(new int[]{1,3,4,2,6,5});
-  }
 
 }
 

@@ -1,4 +1,4 @@
-package io.farkle.dignifiedfarkleservice;
+package io.farkle.dignifiedfarkleservice.model;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -25,6 +25,7 @@ public class Roll {
   }
 
   public static void main(String[] args) {
-    System.out.println(Arrays.toString(Roll.rollDice(6)));
+
+//    System.out.println(Arrays.toString(Roll.rollDice(6)));
   }
 }

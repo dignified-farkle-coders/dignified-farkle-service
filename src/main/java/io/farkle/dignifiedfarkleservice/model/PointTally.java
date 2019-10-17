@@ -1,4 +1,4 @@
-package io.farkle.dignifiedfarkleservice;
+package io.farkle.dignifiedfarkleservice.model;
 
 public class PointTally {
 
@@ -33,7 +33,7 @@ public class PointTally {
       }
     }
 
-
+    return 3;
   }
 
 }

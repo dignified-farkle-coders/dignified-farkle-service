@@ -1,6 +1,9 @@
 package io.farkle.dignifiedfarkleservice.model;
 
+import io.farkle.dignifiedfarkleservice.model.Dice.Face;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -23,5 +26,19 @@ public class Main {
     }
     System.out.println(players[0].getPoints());
     System.out.println(Arrays.toString(players));
+
+
+
+//
+//
+//    DiceBucket diceBucket = new DiceBucket(6);
+//    System.out.println(diceBucket);
+//    diceBucket.rollAll();
+//    System.out.println(diceBucket);
+//    diceBucket.rollAll();
+//    System.out.println(diceBucket);
+//    diceBucket.rollAll();
+//    System.out.println(diceBucket);
+
   }
 }

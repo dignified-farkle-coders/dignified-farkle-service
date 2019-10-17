@@ -2,6 +2,7 @@ package io.farkle.dignifiedfarkleservice.entity;
 
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +14,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.NegativeOrZero.List;
 import org.springframework.lang.NonNull;
 
 @Entity

@@ -3,6 +3,7 @@ package io.farkle.dignifiedfarkleservice.entity;
 
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,12 +15,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.NegativeOrZero.List;
 import org.springframework.lang.NonNull;
 
 @Entity
 @Table(
-    uniqueConstraints = @UniqueConstraint(columnNames = "date_created"),@UniqueConstraint(columnNames = "user_name"),
+    uniqueConstraints = @UniqueConstraint(columnNames = {"date_created", "user_name"}),
     indexes = {
         @Index(columnList = "dice_upgrade"),
         @Index(columnList = "win_rate"),
@@ -40,8 +40,20 @@ public class Player {
 
   @NonNull
   @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
-  @OrderBy("join_time, duration ASC")
+  @OrderBy("join_time ASC")
   private List<GamePlayer> order = new LinkedList<>();
+
+  public String dice_upgrade;
+
+  public double win_rate;
+
+  public int victory_points;
+
+  public int highest_score;
+
+  public long getId() {
+    return id;
+  }
 
   public Date getDateCreated() {
     return dateCreated;
@@ -60,7 +72,35 @@ public class Player {
     this.order = order;
   }
 
-  public void setId(long id) {
-    this.id = id;
+  public String getDice_upgrade() {
+    return dice_upgrade;
+  }
+
+  public void setDice_upgrade(String dice_upgrade) {
+    this.dice_upgrade = dice_upgrade;
+  }
+
+  public double getWin_rate() {
+    return win_rate;
+  }
+
+  public void setWin_rate(double win_rate) {
+    this.win_rate = win_rate;
+  }
+
+  public int getVictory_points() {
+    return victory_points;
+  }
+
+  public void setVictory_points(int victory_points) {
+    this.victory_points = victory_points;
+  }
+
+  public int getHighest_score() {
+    return highest_score;
+  }
+
+  public void setHighest_score(int highest_score) {
+    this.highest_score = highest_score;
   }
 }

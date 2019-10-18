@@ -27,9 +27,13 @@ public class Main {
 
     System.out.println(Arrays.toString(players));
     System.out.println("First roll: \n");
-    System.out.println(Arrays.toString(Roll.rollDice(startingDice)));
+    System.out.println(Arrays.toString(Roll.rollDice(6)));
+    int[] test = Roll.rollDice(6);
+
+    List<Integer> tylaMethod = new ArrayList<>();
     System.out.println("Which die would you like to keep?");
     System.out.println("Type 1-6 to choose. Press 'b' when finished.");
+
 
   }
 

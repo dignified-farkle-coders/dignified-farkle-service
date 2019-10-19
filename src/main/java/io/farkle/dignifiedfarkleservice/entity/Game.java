@@ -37,7 +37,7 @@ public class Game {
 
   @NonNull
   @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
-  @OrderBy("join_time, duration ASC")
+  @OrderBy("join_time ASC")
   private List<GamePlayer> order = new LinkedList<>();
 
   private String winner;

@@ -11,6 +11,7 @@ public class Main {
 
   public static void main(String[] args) {
     int startingDice = 6;
+    List<Integer> frozenDice = new ArrayList<>();
 
     Scanner scanner = new Scanner(System.in);
     System.out.println("How Many Players?");
@@ -27,12 +28,29 @@ public class Main {
 
     System.out.println(Arrays.toString(players));
     System.out.println("First roll: \n");
-    System.out.println(Arrays.toString(Roll.rollDice(startingDice)));
+    int[] tylaArray = Roll.rollDice(startingDice);
+    List<Integer> remainingDice = new ArrayList<>();
+    for(int i : tylaArray) {
+      remainingDice.add(i);
+    }
+    System.out.println(remainingDice);
     System.out.println("Which die would you like to keep?");
     System.out.println("Type 1-6 to choose. Press 'b' when finished.");
 
-  }
 
+    while (frozenDice.size() < 6) {
+      Scanner freeze = new Scanner(System.in);
+      int frozenDie = Integer.parseInt(freeze.nextLine());
+      frozenDice.add(tylaArray[frozenDie]);
+      remainingDice.remove(frozenDie);
+      System.out.println(remainingDice);
+      System.out.println(frozenDice);
+      }
+
+    }
 
 }
+
+
+
 

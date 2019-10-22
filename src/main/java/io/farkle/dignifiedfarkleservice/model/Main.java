@@ -30,8 +30,6 @@ public class Main {
     //Displays current dice.
     System.out.println(Choice.remainingDice(Roll.rollDice(6)));
     System.out.println(PointTally.pointTally(Choice.getKeepers()));
-    System.out.println("These are your new dice: " + Arrays.toString(Roll.rollDice(Choice.getReroll())));
-    System.out.println(Choice.remainingDice(Roll.rollDice(diceAmount)));
     System.out.println("This is your score: " + PointTally.pointTally(Choice.getKeepers()));
 
     System.out.println("Do you wish to re-roll? (y/n)");
@@ -39,7 +37,6 @@ public class Main {
     String yesToReroll = scanner.nextLine();
     if (yesToReroll.equals("y")) {
       System.out.println("These are your new dice: " + Choice.remainingDice(Roll.rollDice(diceAmount)));
-      System.out.println();
     }
 
     if (yesToReroll.equals("n")) {

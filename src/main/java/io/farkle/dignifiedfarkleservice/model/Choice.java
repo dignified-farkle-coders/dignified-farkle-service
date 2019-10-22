@@ -24,39 +24,58 @@ public class Choice {
     return reroll;
   }
 
-  @Override
-  public String toString() {
-    return "Keep: " + Arrays.toString(getKeepers()) + ", Reroll:" + getReroll();
-  }
-
-//  public static Choice Keepers(){
-//    return nullgetKeepers();
-//  }
-
   public static Choice remainingDice(int[] randomArray) {
-    int startingDice = 6;
+    int startingDice = Main.diceAmount;
+    boolean doneChoosing = false;
     List<Integer> frozenDice = new ArrayList<>();
-    int[] tylaArray = Roll.rollDice(startingDice);
-    System.out.println(Arrays.toString(tylaArray));
     List<Integer> remainingDice = new ArrayList<>();
 
-    for(int i : tylaArray) {
+    int[] tylaArray = Roll.rollDice(startingDice);
+    System.out.println(Arrays.toString(tylaArray));
+
+    for (int i : tylaArray) {
       remainingDice.add(i);
     }
 
     System.out.println("Which die would you like to keep?");
     System.out.println("Type 1-6 to choose. Press 'b' when finished.");
 
-    while (frozenDice.size() < 6) {
-      Scanner freeze = new Scanner(System.in);
-      int frozenDie = Integer.parseInt(freeze.nextLine());
-      frozenDice.add(remainingDice.get(frozenDie - 1));
-      remainingDice.remove(frozenDie - 1);
-      System.out.println(remainingDice);
-      System.out.println(frozenDice);
+    while (!doneChoosing) {
+      Scanner scanner = new Scanner(System.in);
+
+      String frozenDieString = scanner.nextLine();
+      int frozenDieInt;
+
+      try {
+        frozenDieInt = Integer.parseInt(frozenDieString);
+        frozenDice.add(remainingDice.get(frozenDieInt - 1));
+        remainingDice.remove(frozenDieInt - 1);
+        System.out.println(remainingDice);
+        System.out.println(frozenDice);
+
+      } catch (NumberFormatException ignored) {
+        if (frozenDieString.equals("b")) {
+
+          System.out.println("You have choosen b");
+          doneChoosing = true;
+          break;
+        }
+
+      }
+
     }
-    Choice choice = new Choice(frozenDice.stream().mapToInt(Integer::valueOf).toArray(), remainingDice.size());
+    Choice choice = new Choice(frozenDice.stream().mapToInt(Integer::valueOf).toArray(),
+        remainingDice.size());
     return choice;
+  }
+
+//  public static Choice Keepers(){
+//    return nullgetKeepers();
+//  }
+
+  @Override
+  public String toString() {
+    return "Keep: " + Arrays.toString(getKeepers()) + ", Reroll:" + getReroll();
   }
 
 }

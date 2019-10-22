@@ -4,9 +4,10 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
+  public static int diceAmount = 6;
+
 
   public static void main(String[] args) {
-    int startingDice = 6;
 
     Scanner scanner = new Scanner(System.in);
     System.out.println("How Many Players?");
@@ -24,9 +25,20 @@ public class Main {
     System.out.println(Arrays.toString(players));
     System.out.println("First roll: \n");
 
-    System.out.println(Choice.remainingDice(Roll.rollDice(6)));
-    System.out.println(PointTally.pointTally(Choice.getKeepers()));
-    System.out.println("These are your new dice: " + Arrays.toString(Roll.rollDice(Choice.getReroll())));
+    System.out.println(Choice.remainingDice(Roll.rollDice(diceAmount)));
+    System.out.println("This is your score: " + PointTally.pointTally(Choice.getKeepers()));
+
+    System.out.println("Do you wish to re-roll? (y/n)");
+    diceAmount = Choice.getReroll();
+    String yesToReroll = scanner.nextLine();
+    if (yesToReroll.equals("y")) {
+      System.out.println("These are your new dice: " + Choice.remainingDice(Roll.rollDice(diceAmount)));
+      System.out.println();
+    }
+
+    if (yesToReroll.equals("n")) {
+      System.out.println("Next players turn.");
+    }
 
 
 

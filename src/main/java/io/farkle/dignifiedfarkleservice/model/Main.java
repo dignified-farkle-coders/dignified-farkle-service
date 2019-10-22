@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class Main {
   public static int diceAmount = 6;
+  public static boolean reroll = true;
 
 
   public static void main(String[] args) {
@@ -29,19 +30,23 @@ public class Main {
 
     //Displays current dice.
     System.out.println(Choice.remainingDice(Roll.rollDice(6)));
-    System.out.println(PointTally.pointTally(Choice.getKeepers()));
     System.out.println("This is your score: " + PointTally.pointTally(Choice.getKeepers()));
 
+    while (reroll) {
     System.out.println("Do you wish to re-roll? (y/n)");
     diceAmount = Choice.getReroll();
     String yesToReroll = scanner.nextLine();
-    if (yesToReroll.equals("y")) {
-      System.out.println("These are your new dice: " + Choice.remainingDice(Roll.rollDice(diceAmount)));
+      if (yesToReroll.equals("y")) {
+        System.out
+            .println("These are your new dice: " + Choice.remainingDice(Roll.rollDice(diceAmount)));;
+      }
+
+      if (yesToReroll.equals("n")) {
+        System.out.println("Next players turn.");
+        reroll = false;
+      }
     }
 
-    if (yesToReroll.equals("n")) {
-      System.out.println("Next players turn.");
-    }
 
 
 

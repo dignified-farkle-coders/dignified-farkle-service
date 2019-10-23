@@ -37,6 +37,7 @@ public class Main {
       if (yesToReroll.equals("y")) {
         System.out
             .println("These are your new dice: " + Choice.remainingDice(Roll.rollDice(diceAmount)));
+        System.out.println("Points gained! " + PointTally.pointTally(Choice.getKeepers()));
       }
 
       if (yesToReroll.equals("n")) {
@@ -44,6 +45,8 @@ public class Main {
         reroll = false;
       }
     }
+
+    // TODO Implement next players turn
 
   }
 

@@ -38,12 +38,15 @@ public class Choice {
     }
 
     System.out.println("Which die would you like to keep?");
-    System.out.println("Type 1-6 to choose. Press 'b' when finished.");
+    System.out.println("Type 1-6 to choose. Press 'b' when finished."); // TODO type 1-(available dice left)
+
 
     while (!doneChoosing) {
       Scanner scanner = new Scanner(System.in);
 
       String frozenDieString = scanner.nextLine();
+      // TODO Dont allow user to input String != 'b'
+
       int frozenDieInt;
 
       try {

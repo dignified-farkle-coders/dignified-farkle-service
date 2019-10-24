@@ -28,7 +28,7 @@ public class Main {
 
     //Displays current dice.
     System.out.println(Choice.remainingDice(Roll.rollDice(6)));
-    System.out.println("This is your score: " + PointTally.pointTally(Choice.getKeepers()));
+    System.out.println("This is your score: " + PointTally.DiceTally(Choice.getKeepers()));
 
     while (reroll) {
       System.out.println("Do you wish to re-roll? (y/n)");
@@ -37,7 +37,7 @@ public class Main {
       if (yesToReroll.equals("y")) {
         System.out
             .println("These are your new dice: " + Choice.remainingDice(Roll.rollDice(diceAmount)));
-        System.out.println("Points gained! " + PointTally.pointTally(Choice.getKeepers()));
+        System.out.println("Points gained! " + PointTally.DiceTally(Choice.getKeepers()));
       }
 
       if (yesToReroll.equals("n")) {

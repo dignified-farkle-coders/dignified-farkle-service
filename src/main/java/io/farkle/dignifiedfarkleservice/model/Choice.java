@@ -25,7 +25,7 @@ public class Choice {
   }
 
   public static Choice remainingDice(int[] randomArray) {
-    int startingDice = Main.diceAmount;
+    int startingDice = randomArray.length;
     boolean doneChoosing = false;
     List<Integer> frozenDice = new ArrayList<>();
     List<Integer> remainingDice = new ArrayList<>();

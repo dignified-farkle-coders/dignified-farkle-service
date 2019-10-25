@@ -6,8 +6,8 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 public class Main {
-
   public static int diceAmount = 6;
+
   public static boolean reroll = true;
 
   public static void main(String[] args) {
@@ -32,6 +32,9 @@ public class Main {
     //////////////////////////////////////////////////////////////////////////////////// Game Begins
 
     while (true) {
+      reroll = true;
+      int diceAmount = 6;
+
       System.out.println(playerIterator.next() + " turn.");
 
       System.out.println(Arrays.toString(players));

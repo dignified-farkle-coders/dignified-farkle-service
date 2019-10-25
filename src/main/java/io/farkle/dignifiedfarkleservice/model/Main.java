@@ -45,8 +45,8 @@ public class Main {
         reroll = false;
       }
     }
-
-    // TODO Implement next players turn
+    // TODO If player gets value for all 6 die, reroll all 6.
+    // TODO Implement next players turn.
 
   }
 

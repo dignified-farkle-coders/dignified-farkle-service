@@ -1,6 +1,8 @@
 package io.farkle.dignifiedfarkleservice.model;
 
+import com.google.common.collect.Iterables;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class Main {
@@ -15,6 +17,9 @@ public class Main {
     int numberOfPlayers = Integer.parseInt(scanner.nextLine());
     Player[] players = new Player[numberOfPlayers];
 
+
+
+
     // initialization, set the player array full of player objects.
     for (int i = 0; i < players.length; i++) {
       System.out.printf("Who is player number %d?%n", i + 1);
@@ -23,6 +28,17 @@ public class Main {
       players[i] = player;
     }
 
+    Iterator<Player> playerIterator = Iterables.cycle(Arrays.asList(players)).iterator();
+    System.out.println(playerIterator.next());
+    System.out.println(playerIterator.next());
+    System.out.println(playerIterator.next());
+    System.out.println(playerIterator.next());
+    System.out.println(playerIterator.next());
+    System.out.println(playerIterator.next());
+    System.out.println(playerIterator.next());
+    System.out.println(playerIterator.next());
+    System.out.println(playerIterator.next());
+    System.out.println(playerIterator.next());
     System.out.println(Arrays.toString(players));
     System.out.println("First roll: \n");
 

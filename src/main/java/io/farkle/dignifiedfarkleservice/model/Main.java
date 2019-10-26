@@ -1,48 +1,45 @@
 package io.farkle.dignifiedfarkleservice.model;
 
 import com.google.common.collect.Iterables;
-import java.awt.Point;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Scanner;
 
 public class Main {
+
   public static int diceAmount = 6;
   public static boolean reroll = true;
 
   public static void main(String[] args) {
     boolean catchPass = true;
     int pointValue = 0;
+
     Scanner scanner = new Scanner(System.in);
     System.out.println("How Many Players?");
     int numberOfPlayers = Integer.parseInt(scanner.nextLine());
     Player[] players = new Player[numberOfPlayers];
 
-
-
-
-
     // initialization, set the player array full of player objects.
     for (int i = 0; i < players.length; i++) {
-      System.out.printf("Who is player number %d?%n", i + 1);
       Player player = new Player();
+      System.out.printf("Who is player number %d?%n", i + 1);
       player.setName(scanner.nextLine());
       players[i] = player;
     }
 
     Iterator<Player> playerIterator = Iterables.cycle(Arrays.asList(players)).iterator();
     //////////////////////////////////////////////////////////////////////////////////// Game Begins
+    int x = 0;
 
     while (true) {
-      Player player = new Player();
+      int getPlayerScore = players[x].getPoints();
 
       while (catchPass) {
-
         reroll = true;
         int diceAmount = 6;
         String playerName = playerIterator.next().getName();
         String playerShort = playerName.substring(0, 1).toUpperCase() + playerName.substring(1);
-        System.out.println(playerShort + " Total Points: " + player.getPoints());
+        System.out.println(playerShort + " Total Points: " + getPlayerScore);
 
         System.out.println(playerShort + "'s turn.");
         System.out.println("First roll: \n");
@@ -51,11 +48,16 @@ public class Main {
 
         System.out.println(Choice.remainingDice(Roll.rollDice(6)));
         try {
-          System.out.println("This is your score: " + PointTally.DiceTally(Choice.getKeepers()));
+          pointValue = PointTally.DiceTally(Choice.getKeepers());
+          System.out.println("This is your score: " + pointValue);
+          getPlayerScore += pointValue;
+
           catchPass = false;
         } catch (Exception e) {
           System.out.println("Wow, lost on the first try?!");
-          playerName = playerIterator.next().getName();
+          playerIterator.next().setPoints(0);
+          playerShort = playerName.substring(0, 1).toUpperCase() + playerName.substring(1);
+          System.out.println(playerShort + " Total Points: " + getPlayerScore);
           System.out.println(
               playerName.substring(0, 1).toUpperCase() + playerName.substring(1) + "'s turn.");
           System.out.println("First roll: \n");
@@ -72,22 +74,23 @@ public class Main {
         String yesToReroll = scanner.nextLine();
         if (yesToReroll.equals("y")) {
           try {
-
             System.out.println(Choice.remainingDice(Roll.rollDice(diceAmount)));
             pointValue = PointTally.DiceTally((Choice.getKeepers()));
+            getPlayerScore += pointValue;
             System.out.println("Points gained: " + pointValue);
           } catch (Exception e) {
             System.out.println("Welp, that sucks");
             reroll = false;
             break;
           }
-
         }
 
         if (yesToReroll.equals("n")) {
-          player.setPoints(pointValue + player.getPoints());
-          System.out.println(player.getPoints());
-
+          players[x].setPoints(getPlayerScore);
+          x = x + 1;
+          if (x == players.length) {
+            x = 0;
+          }
           reroll = false;
         }
       }

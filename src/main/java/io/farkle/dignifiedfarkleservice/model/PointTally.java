@@ -118,7 +118,8 @@ public class PointTally {
       pointValue = 3000;
     }
     if (talliedDice == keepers.length && (pointValue != 0)) {
-      return pointValue;
+      Player player = new Player();
+      player.setPoints(pointValue + player.getPoints());
     }
     if (talliedDice != keepers.length && (pointValue != 0)) {
       return 1;
@@ -129,6 +130,11 @@ public class PointTally {
     if ((talliedDice == keepers.length) && (pointValue == 0)) {
       return 0;
     }else return 2;
+
+
   }
+
+
+
 
 }

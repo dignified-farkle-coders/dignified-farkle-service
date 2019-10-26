@@ -2,7 +2,7 @@ package io.farkle.dignifiedfarkleservice.model;
 
 public class Player {
 
-  private int playerPoints;
+  public int playerPoints;
   private String playerName;
 
   public void setPoints(int points) {

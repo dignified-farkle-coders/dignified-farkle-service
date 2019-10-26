@@ -17,7 +17,6 @@ public class Roll {
     int [] receiveDice = new int[generateDiceNumber];
 
     if (generateDiceNumber == 0) {
-      System.out.println("Maybe you rolled all 6 die?");
       return new int[]{7};
     }
 

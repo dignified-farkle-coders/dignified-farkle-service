@@ -123,6 +123,9 @@ public class PointTally {
     if (talliedDice != keepers.length && (pointValue != 0)) {
       return 1;
     }
+    if(pointValue == 0) {
+      return 3;
+    }
     if ((talliedDice == keepers.length) && (pointValue == 0)) {
       return 0;
     }else return 2;

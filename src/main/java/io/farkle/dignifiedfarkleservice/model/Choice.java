@@ -42,7 +42,7 @@ public class Choice {
 
     System.out.println(Arrays.toString(tylaArray));
 
-    if (PointTally.DiceTally(tylaArray) == 1) {
+    if (PointTally.DiceTally(tylaArray) == 3) {
       System.out.println("Loser Bruiser!");
       return new Choice(new int[]{}, 0);
     }

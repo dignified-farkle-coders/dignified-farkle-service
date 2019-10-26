@@ -50,8 +50,8 @@ public class Main {
         String yesToReroll = scanner.nextLine();
         if (yesToReroll.equals("y")) {
           System.out
-              .println("These are your new dice: " + Choice.remainingDice(Roll.rollDice(diceAmount)));
-          System.out.println("Points gained! " + PointTally.DiceTally(Choice.getKeepers()));
+              .println(Choice.remainingDice(Roll.rollDice(diceAmount)));
+          System.out.println("Points gained: " + PointTally.DiceTally(Choice.getKeepers()));
         }
 
         if (yesToReroll.equals("n")) {
@@ -59,9 +59,6 @@ public class Main {
         }
       }
     }
-    // TODO If player gets value for all 6 die, reroll all 6.
-    // TODO Implement next players turn.
-
   }
 
 }

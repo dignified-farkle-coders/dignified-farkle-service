@@ -42,19 +42,23 @@ public class Choice {
 
     System.out.println(Arrays.toString(tylaArray));
 
+    if (PointTally.DiceTally(tylaArray) == 1) {
+      System.out.println("Loser Bruiser!");
+      return new Choice(new int[]{}, 0);
+    }
+
     for (int i : tylaArray) {
       remainingDice.add(i);
     }
 
     System.out.println("Which die would you like to keep?");
-    System.out.println("Type 1-6 to choose. Press 'b' when finished."); // TODO type 1-(available dice left)
+    System.out.println("Type 1-" + tylaArray.length +" to choose. Press 'b' when finished.");
 
 
     while (!doneChoosing) {
       Scanner scanner = new Scanner(System.in);
 
       String frozenDieString = scanner.nextLine();
-      // TODO Dont allow user to input String != 'b'
 
       int frozenDieInt;
 

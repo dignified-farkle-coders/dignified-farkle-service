@@ -5,7 +5,6 @@ import java.util.Arrays;
 public class PointTally {
 
   public static int DiceTally(int[] keepers){
-    System.out.println("Keepers!!!:" + Arrays.toString(Choice.getKeepers()));
     int ones = 0;
     int twos = 0;
     int threes = 0;

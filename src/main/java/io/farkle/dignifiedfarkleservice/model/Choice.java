@@ -25,12 +25,21 @@ public class Choice {
   }
 
   public static Choice remainingDice(int[] randomArray) {
+    int [] tylaArray = new int[randomArray.length];
     int startingDice = randomArray.length;
     boolean doneChoosing = false;
     List<Integer> frozenDice = new ArrayList<>();
     List<Integer> remainingDice = new ArrayList<>();
 
-    int[] tylaArray = Roll.rollDice(startingDice);
+    if (randomArray[0] != 7) {
+      tylaArray = Roll.rollDice(startingDice);
+    }
+
+    // Checks if all dice have point value and no more dice left to roll, granting 6 new dice.
+    if (randomArray[0] == 7 && PointTally.DiceTally(getKeepers()) % 10 == 0) {
+      tylaArray = Roll.rollDice(6);
+    }
+
     System.out.println(Arrays.toString(tylaArray));
 
     for (int i : tylaArray) {

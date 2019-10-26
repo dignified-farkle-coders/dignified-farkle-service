@@ -16,6 +16,11 @@ public class Roll {
     int myRandomNumber;
     int [] receiveDice = new int[generateDiceNumber];
 
+    if (generateDiceNumber == 0) {
+      System.out.println("Maybe you rolled all 6 die?");
+      return new int[]{7};
+    }
+
     for (int i = 0; i < generateDiceNumber; i++) {
       myRandomNumber = rng.nextInt(6) + 1;
       receiveDice[i] = myRandomNumber;

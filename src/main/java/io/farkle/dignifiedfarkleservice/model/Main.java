@@ -34,10 +34,8 @@ public class Main {
     while (true) {
       reroll = true;
       int diceAmount = 6;
-
-      System.out.println(playerIterator.next() + " turn.");
-
-      System.out.println(Arrays.toString(players));
+      String playerName = playerIterator.next().getName();
+      System.out.println(playerName.substring(0, 1).toUpperCase() + playerName.substring(1) + "'s turn.");
       System.out.println("First roll: \n");
 
       //Displays current dice.
@@ -46,7 +44,9 @@ public class Main {
 
       while (reroll) {
         System.out.println("Do you wish to re-roll? (y/n)");
+
         diceAmount = Choice.getReroll();
+
         String yesToReroll = scanner.nextLine();
         if (yesToReroll.equals("y")) {
           System.out
@@ -55,7 +55,6 @@ public class Main {
         }
 
         if (yesToReroll.equals("n")) {
-          System.out.println("Next players turn.");
           reroll = false;
         }
       }

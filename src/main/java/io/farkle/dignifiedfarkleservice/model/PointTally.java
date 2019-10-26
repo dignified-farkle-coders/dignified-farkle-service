@@ -117,9 +117,15 @@ public class PointTally {
       talliedDice += 6;
       pointValue = 3000;
     }
-    if (talliedDice == keepers.length) {
+    if (talliedDice == keepers.length && (pointValue != 0)) {
       return pointValue;
-    } else return 1;
+    }
+    if (talliedDice != keepers.length && (pointValue != 0)) {
+      return 1;
+    }
+    if ((talliedDice == keepers.length) && (pointValue == 0)) {
+      return 0;
+    }else return 2;
   }
 
 }

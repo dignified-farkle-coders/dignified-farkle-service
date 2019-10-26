@@ -24,7 +24,6 @@ public class Roll {
       myRandomNumber = rng.nextInt(6) + 1;
       receiveDice[i] = myRandomNumber;
     }
-
     return receiveDice;
   }
 

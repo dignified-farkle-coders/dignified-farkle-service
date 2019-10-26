@@ -1,6 +1,7 @@
 package io.farkle.dignifiedfarkleservice.model;
 
 import com.google.common.collect.Iterables;
+import java.awt.Point;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -11,11 +12,12 @@ public class Main {
 
   public static void main(String[] args) {
     boolean catchPass = true;
-
+    int pointValue = 0;
     Scanner scanner = new Scanner(System.in);
     System.out.println("How Many Players?");
     int numberOfPlayers = Integer.parseInt(scanner.nextLine());
     Player[] players = new Player[numberOfPlayers];
+
 
 
 
@@ -32,13 +34,17 @@ public class Main {
     //////////////////////////////////////////////////////////////////////////////////// Game Begins
 
     while (true) {
+      Player player = new Player();
+
       while (catchPass) {
+
         reroll = true;
         int diceAmount = 6;
         String playerName = playerIterator.next().getName();
-        System.out
-            .println(
-                playerName.substring(0, 1).toUpperCase() + playerName.substring(1) + "'s turn.");
+        String playerShort = playerName.substring(0, 1).toUpperCase() + playerName.substring(1);
+        System.out.println(playerShort + " Total Points: " + player.getPoints());
+
+        System.out.println(playerShort + "'s turn.");
         System.out.println("First roll: \n");
 
         //Displays current dice.
@@ -67,9 +73,9 @@ public class Main {
         if (yesToReroll.equals("y")) {
           try {
 
-            System.out
-                .println(Choice.remainingDice(Roll.rollDice(diceAmount)));
-            System.out.println("Points gained: " + PointTally.DiceTally(Choice.getKeepers()));
+            System.out.println(Choice.remainingDice(Roll.rollDice(diceAmount)));
+            pointValue = PointTally.DiceTally((Choice.getKeepers()));
+            System.out.println("Points gained: " + pointValue);
           } catch (Exception e) {
             System.out.println("Welp, that sucks");
             reroll = false;
@@ -79,6 +85,9 @@ public class Main {
         }
 
         if (yesToReroll.equals("n")) {
+          player.setPoints(pointValue + player.getPoints());
+          System.out.println(player.getPoints());
+
           reroll = false;
         }
       }

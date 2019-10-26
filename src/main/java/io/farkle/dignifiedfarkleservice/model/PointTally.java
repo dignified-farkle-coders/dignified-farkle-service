@@ -103,7 +103,7 @@ public class PointTally {
       }
     }
     if (pairs == 3) {
-      talliedDice += 6;
+      talliedDice = 6;
       pointValue = 1500;
     }
 
@@ -114,12 +114,11 @@ public class PointTally {
       }
     }
     if (straight == 6) {
-      talliedDice += 6;
+      talliedDice = 6;
       pointValue = 3000;
     }
     if (talliedDice == keepers.length && (pointValue != 0)) {
-      Player player = new Player();
-      player.setPoints(pointValue + player.getPoints());
+      return pointValue;
     }
     if (talliedDice != keepers.length && (pointValue != 0)) {
       return 1;

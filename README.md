@@ -22,11 +22,13 @@ you soon on the Farkle battlegrounds.
 ## Intended Users
 * Gamers who enjoy unique addicting dice games.
 * Anyone who enjoy games that involve a significant amount of chance.
-* Android users who have a reliable source  of internet access.
+* Android users who have a reliable source of internet access.
 
 #### [User Stories](docs/user-stories.md)
 
 #### [Entity Relationship Diagram](docs/erd.md)
+
+#### [Wireframe](docs/wireframe.png)
 
 ## Milestone 1
 * [x] Description

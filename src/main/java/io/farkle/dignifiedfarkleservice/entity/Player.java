@@ -43,6 +43,8 @@ public class Player {
   @OrderBy("join_time ASC")
   private List<GamePlayer> order = new LinkedList<>();
 
+  // TODO Make these fields and add Column
+  // TODO Make Column for User
   public String dice_upgrade;
 
   public double win_rate;

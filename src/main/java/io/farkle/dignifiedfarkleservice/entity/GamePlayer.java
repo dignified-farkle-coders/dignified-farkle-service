@@ -15,7 +15,7 @@ import org.springframework.lang.NonNull;
 
 @Entity
 @Table(
-    uniqueConstraints = @UniqueConstraint(columnNames = {"game_id", "player_id", "join_time", "left_time"}),
+    uniqueConstraints = @UniqueConstraint(columnNames = {"game_id", "player_id"}),
         indexes = {
             @Index(columnList = "game_id, player_id"),
             @Index(columnList = "order, points")

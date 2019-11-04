@@ -18,7 +18,6 @@ import org.springframework.lang.NonNull;
 
 @Entity
 @Table(
-    uniqueConstraints = @UniqueConstraint(columnNames = "date_created"),
     indexes = {
         @Index(columnList = "winner"),
         @Index(columnList = "number_of_rounds")
@@ -32,7 +31,7 @@ public class Game {
   private long id;
 
   @NonNull
-  @Column(nullable = false)
+  @Column(nullable = false, unique = true)
   private Date dateCreated = new Date();
 
   @NonNull

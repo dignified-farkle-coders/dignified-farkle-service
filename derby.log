@@ -1,11 +1,11 @@
 ----------------------------------------------------------------
-Thu Oct 17 08:03:42 MDT 2019:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-016d-da08-0918-00000bd730f0 
-on database directory memory:C:\Users\7dbro\Desktop\bootcamp\projects\dignified-farkle-service\testdb with class loader sun.misc.Launcher$AppClassLoader@18b4aac2 
-Loaded from file:/C:/Users/7dbro/.m2/repository/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
+Mon Nov 04 16:51:08 MST 2019:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-016e-38d4-4f9b-000009b5f1c0 
+on database directory memory:C:\Users\mr_15\Desktop\bootcamp\projects\dignified-farkle-service\testdb with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@9e89d68 
+Loaded from file:/C:/Users/mr_15/.m2/repository/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
 java.vendor=Amazon.com Inc.
-java.runtime.version=1.8.0_222-b10
-user.dir=C:\Users\7dbro\Desktop\bootcamp\projects\dignified-farkle-service
+java.runtime.version=11.0.5+10-LTS
+user.dir=C:\Users\mr_15\Desktop\bootcamp\projects\dignified-farkle-service
 os.name=Windows 10
 os.arch=amd64
 os.version=10.0

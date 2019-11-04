@@ -130,10 +130,6 @@ public class PointTally {
       return 0;
     }else return 2;
 
-
   }
-
-
-
 
 }

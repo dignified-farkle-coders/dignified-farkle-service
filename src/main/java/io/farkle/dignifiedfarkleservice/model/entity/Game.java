@@ -1,4 +1,4 @@
-package io.farkle.dignifiedfarkleservice.entity;
+package io.farkle.dignifiedfarkleservice.model.entity;
 
 import java.util.Date;
 import java.util.LinkedList;
@@ -13,7 +13,6 @@ import javax.persistence.Index;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import org.springframework.lang.NonNull;
 
 @Entity
@@ -41,7 +40,9 @@ public class Game {
 
   private String winner;
 
-  private int numberOfRounds;
+  @NonNull
+  @Column(nullable = false)
+  private int number_of_rounds;
 
   public long getId() {
     return id;
@@ -73,10 +74,10 @@ public class Game {
   }
 
   public int getNumberOfRounds() {
-    return numberOfRounds;
+    return number_of_rounds;
   }
 
   public void setNumberOfRounds(int numberOfRounds) {
-    this.numberOfRounds = numberOfRounds;
+    this.number_of_rounds = numberOfRounds;
   }
 }

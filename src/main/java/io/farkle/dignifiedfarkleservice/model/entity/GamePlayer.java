@@ -1,4 +1,4 @@
-package io.farkle.dignifiedfarkleservice.entity;
+package io.farkle.dignifiedfarkleservice.model.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

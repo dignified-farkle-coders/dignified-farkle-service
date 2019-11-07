@@ -1,4 +1,4 @@
-package io.farkle.dignifiedfarkleservice.entity;
+package io.farkle.dignifiedfarkleservice.model.entity;
 
 
 import java.util.Date;
@@ -36,7 +36,7 @@ public class Player {
 
   @NonNull
   @Column(nullable = false)
-  private Date dateCreated = new Date();
+  private Date date_created = new Date();
 
   @NonNull
   @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -45,26 +45,47 @@ public class Player {
 
   // TODO Make these fields and add Column
   // TODO Make Column for User
+
+  @NonNull
+  @Column(nullable = false)
+  public User user_name;
+
+  @NonNull
+  @Column(nullable = false)
   public String dice_upgrade;
 
+  @NonNull
+  @Column(nullable = false)
   public double win_rate;
 
+  @NonNull
+  @Column(nullable = false)
   public int victory_points;
 
+  @NonNull
+  @Column(nullable = false)
   public int highest_score;
 
+  @NonNull
+  @Column(nullable = false)
   public long getId() {
     return id;
   }
 
+  @NonNull
+  @Column(nullable = false)
   public Date getDateCreated() {
-    return dateCreated;
+    return date_created;
   }
 
+  @NonNull
+  @Column(nullable = false)
   public void setDateCreated(Date dateCreated) {
-    this.dateCreated = dateCreated;
+    this.date_created = dateCreated;
   }
 
+  @NonNull
+  @Column(nullable = false)
   public List<GamePlayer> getOrder() {
     return order;
   }

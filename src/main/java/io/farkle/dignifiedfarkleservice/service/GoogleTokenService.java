@@ -6,7 +6,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import io.farkle.dignifiedfarkleservice.model.entity.User;
+import io.farkle.dignifiedfarkleservice.model.entity.Player;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Collection;
@@ -32,14 +32,14 @@ import org.springframework.stereotype.Component;
 public class GoogleTokenService implements ResourceServerTokenServices {
 
   private final String clientId;
-  private final UserService userService;
+  private final PlayerService playerService;
   private final AccessTokenConverter converter = new DefaultAccessTokenConverter();
 
   @Autowired
   public GoogleTokenService(@Value("${oauth.clientId}") String clientId,
-      UserService userService) {
+      PlayerService playerService) {
     this.clientId = clientId;
-    this.userService = userService;
+    this.playerService = playerService;
   }
 
   @Override
@@ -54,11 +54,11 @@ public class GoogleTokenService implements ResourceServerTokenServices {
       GoogleIdToken idToken = verifier.verify(token);
       if (idToken != null) {
         Payload payload = idToken.getPayload();
-        User user = userService.getOrCreateUser(payload.getSubject()); // TODO Get any additional info from Payload
+        Player player = playerService.getOrCreatePlayer(payload.getSubject()); // TODO Get any additional info from Payload
         Collection<GrantedAuthority> grants =
             Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
         Authentication base =
-            new UsernamePasswordAuthenticationToken(user, token, grants);
+            new UsernamePasswordAuthenticationToken(player, token, grants);
         OAuth2Request request = converter.extractAuthentication(payload).getOAuth2Request();
         return new OAuth2Authentication(request, base);
       } else {

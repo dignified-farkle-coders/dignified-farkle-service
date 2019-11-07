@@ -31,11 +31,6 @@ public class DignifiedFarkleServiceApplication extends ResourceServerConfigurerA
     return new SecureRandom();
   }
 
-  @Bean
-  public ResourceBundle bundle() {
-    return ResourceBundle.getBundle("wordlist");
-  }
-
   @Override
   public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
     resources.resourceId(clientId);

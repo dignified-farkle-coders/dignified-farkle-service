@@ -31,3 +31,4 @@ build/
 .vscode/
 
 /farkle_db
+derby.log

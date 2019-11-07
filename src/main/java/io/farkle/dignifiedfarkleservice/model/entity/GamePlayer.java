@@ -1,5 +1,6 @@
 package io.farkle.dignifiedfarkleservice.model.entity;
 
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,16 +11,19 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.lang.NonNull;
 
 @Entity
 @Table(
-    uniqueConstraints = @UniqueConstraint(columnNames = {"game_id", "player_id"}),
-        indexes = {
-            @Index(columnList = "game_id, player_id"),
-            @Index(columnList = "order, points")
-    }
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"game_id", "player_id"}),
+        @UniqueConstraint(columnNames = {"game_id", "order_of_play"})
+    },
+    indexes = @Index(columnList = "created")
 )
 public class GamePlayer {
 
@@ -28,6 +32,11 @@ public class GamePlayer {
   @Column(name = "game_player_id", updatable = false, nullable = false)
   private Long id;
 
+  @NonNull
+  @CreationTimestamp
+  @Temporal(TemporalType.TIMESTAMP)
+  @Column(nullable = false, updatable = false)
+  private Date created;
   @NonNull
   @ManyToOne(fetch = FetchType.EAGER, optional = false)
   @JoinColumn(name = "game_id", nullable = false, updatable = false)
@@ -38,6 +47,7 @@ public class GamePlayer {
   @JoinColumn(name = "player_id", nullable = false, updatable = false)
   private Player player;
 
+  @Column(name = "order_of_play", nullable = false, updatable = false)
   private int order;
 
   private int points;

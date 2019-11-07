@@ -6,19 +6,24 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.lang.NonNull;
 
 @Entity
 @Table(
     indexes = {
-        @Index(columnList = "winner"),
         @Index(columnList = "number_of_rounds")
     }
 )
@@ -30,15 +35,19 @@ public class Game {
   private long id;
 
   @NonNull
-  @Column(nullable = false, unique = true)
-  private Date dateCreated = new Date();
+  @CreationTimestamp
+  @Temporal(TemporalType.TIMESTAMP)
+  @Column(nullable = false, updatable = false)
+  private Date created;
 
   @NonNull
   @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
   @OrderBy("join_time ASC")
-  private List<GamePlayer> order = new LinkedList<>();
+  private List<GamePlayer> gamePlayers = new LinkedList<>();
 
-  private String winner;
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "winner_id")
+  private Player winner;
 
   @NonNull
   @Column(nullable = false)
@@ -48,28 +57,20 @@ public class Game {
     return id;
   }
 
-  public Date getDateCreated() {
-    return dateCreated;
+  @NonNull
+  public Date getCreated() {
+    return created;
   }
 
-  public void setDateCreated(Date dateCreated) {
-    this.dateCreated = dateCreated;
+  public List<GamePlayer> getGamePlayers() {
+    return gamePlayers;
   }
 
-  public List<GamePlayer> getOrder() {
-    return order;
-  }
-
-  public void setOrder(
-      List<GamePlayer> order) {
-    this.order = order;
-  }
-
-  public String getWinner() {
+  public Player getWinner() {
     return winner;
   }
 
-  public void setWinner(String winner) {
+  public void setWinner(Player winner) {
     this.winner = winner;
   }
 

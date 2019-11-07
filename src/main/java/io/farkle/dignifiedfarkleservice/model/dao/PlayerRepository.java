@@ -1,12 +1,13 @@
 package io.farkle.dignifiedfarkleservice.model.dao;
 
+import io.farkle.dignifiedfarkleservice.model.entity.Player;
 import io.farkle.dignifiedfarkleservice.model.entity.User;
 import java.util.Optional;
 import org.springframework.data.repository.CrudRepository;
 
-public interface UserRepository extends CrudRepository<User, Long> {
+public interface PlayerRepository extends CrudRepository<Player, Long> {
 
-  Optional<User> getUserByOauthKey(String oauthKey);
+  Optional<Player> getPlayerByOauthKey(String oauthKey);
 
 }
 

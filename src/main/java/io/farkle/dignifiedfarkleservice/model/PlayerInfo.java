@@ -1,6 +1,6 @@
 package io.farkle.dignifiedfarkleservice.model;
 
-public class Player {
+public class PlayerInfo {
 
   public int playerPoints;
   private String playerName;

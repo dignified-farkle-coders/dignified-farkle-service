@@ -17,17 +17,17 @@ public class Main {
     Scanner scanner = new Scanner(System.in);
     System.out.println("How Many Players?");
     int numberOfPlayers = Integer.parseInt(scanner.nextLine());
-    Player[] players = new Player[numberOfPlayers];
+    PlayerInfo[] players = new PlayerInfo[numberOfPlayers];
 
     // initialization, set the player array full of player objects.
     for (int i = 0; i < players.length; i++) {
-      Player player = new Player();
+      PlayerInfo player = new PlayerInfo();
       System.out.printf("Who is player number %d?%n", i + 1);
       player.setName(scanner.nextLine());
       players[i] = player;
     }
 
-    Iterator<Player> playerIterator = Iterables.cycle(Arrays.asList(players)).iterator();
+    Iterator<PlayerInfo> playerIterator = Iterables.cycle(Arrays.asList(players)).iterator();
     //////////////////////////////////////////////////////////////////////////////////// Game Begins
     int x = 0;
 

@@ -69,19 +69,19 @@ public class Player {
 
   @NonNull
   @Column(nullable = false)
-  public String dice_upgrade;
+  private String dice_upgrade;
 
   @NonNull
   @Column(nullable = false)
-  public double win_rate;
+  private double win_rate;
 
   @NonNull
   @Column(nullable = false)
-  public int victory_points;
+  private int victory_points;
 
   @NonNull
   @Column(nullable = false)
-  public int highest_score;
+  private int highest_score;
 
   @NonNull
   @Column(nullable = false)
@@ -122,10 +122,12 @@ public class Player {
     return gamesWon;
   }
 
+  @NonNull
   public int getWinCount() {
     return gamesWon.size();
   }
 
+  @NonNull
   public String getDice_upgrade() {
     return dice_upgrade;
   }
@@ -134,6 +136,7 @@ public class Player {
     this.dice_upgrade = dice_upgrade;
   }
 
+  @NonNull
   public double getWin_rate() {
     return win_rate;
   }
@@ -142,6 +145,7 @@ public class Player {
     this.win_rate = win_rate;
   }
 
+  @NonNull
   public int getVictory_points() {
     return victory_points;
   }
@@ -150,6 +154,7 @@ public class Player {
     this.victory_points = victory_points;
   }
 
+  @NonNull
   public int getHighest_score() {
     return highest_score;
   }

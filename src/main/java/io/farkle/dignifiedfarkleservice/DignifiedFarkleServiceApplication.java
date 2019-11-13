@@ -39,8 +39,8 @@ public class DignifiedFarkleServiceApplication extends ResourceServerConfigurerA
   @Override
   public void configure(HttpSecurity http) throws Exception {
     http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//    http.authorizeRequests().anyRequest().permitAll();
-    http.authorizeRequests().anyRequest().hasRole("USER");
+    http.authorizeRequests().anyRequest().permitAll();
+//    http.authorizeRequests().anyRequest().hasRole("USER");
   }
 
 }

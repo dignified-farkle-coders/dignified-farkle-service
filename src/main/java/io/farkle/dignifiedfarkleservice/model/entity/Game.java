@@ -42,7 +42,7 @@ public class Game {
 
   @NonNull
   @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
-  @OrderBy("join_time ASC")
+  @OrderBy("created ASC")
   private List<GamePlayer> gamePlayers = new LinkedList<>();
 
   @ManyToOne(fetch = FetchType.EAGER)

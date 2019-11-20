@@ -38,6 +38,11 @@ public class ActionController {
     return repository.save(action);
   }
 
+  @GetMapping(value = "{id:\\d+}/frozen", produces = MediaType.APPLICATION_JSON_VALUE)
+  public int[] getFrozen(@PathVariable long id) {
+    return repository.findById(id).get().getFrozenDice();
+  }
+
   @GetMapping(value = "{id:\\d+}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Action get(@PathVariable long id) {
     return repository.findById(id).get();

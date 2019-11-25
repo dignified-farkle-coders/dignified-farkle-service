@@ -18,42 +18,34 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.lang.NonNull;
 
 @Entity
-@Table(
-    uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"game_id", "player_id"}),
-        @UniqueConstraint(columnNames = {"game_id", "order_of_play"})
-    },
-    indexes = @Index(columnList = "created")
-)
 public class GamePlayer {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "game_player_id", updatable = false, nullable = false)
-  private Long id;
+  private long gamePlayerId;
 
   @NonNull
   @CreationTimestamp
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = false, updatable = false)
   private Date created;
-  @NonNull
-  @ManyToOne(fetch = FetchType.EAGER, optional = false)
-  @JoinColumn(name = "game_id", nullable = false, updatable = false)
+
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "game_id")
   private Game game;
 
-  @NonNull
-  @ManyToOne(fetch = FetchType.EAGER, optional = false)
-  @JoinColumn(name = "player_id", nullable = false, updatable = false)
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "player_id")
   private Player player;
 
-  @Column(name = "order_of_play", nullable = false, updatable = false)
+  @Column(name = "order_of_play")
   private int order;
 
   private int points;
 
   public Long getId() {
-    return id;
+    return gamePlayerId;
   }
 
   public Game getGame() {

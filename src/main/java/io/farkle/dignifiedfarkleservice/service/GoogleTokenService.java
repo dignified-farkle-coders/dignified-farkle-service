@@ -55,7 +55,7 @@ public class GoogleTokenService implements ResourceServerTokenServices {
       GoogleIdToken idToken = verifier.verify(token);
       if (idToken != null) {
         Payload payload = idToken.getPayload();
-        Player player = playerService.getOrCreatePlayer(payload.getSubject()); // TODO Get any additional info from Payload
+        Player player = playerService.getOrCreatePlayer(payload.getSubject(), (String) payload.get("name")); // TODO Get any additional info from Payload
         Collection<GrantedAuthority> grants =
             Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
         Authentication base =

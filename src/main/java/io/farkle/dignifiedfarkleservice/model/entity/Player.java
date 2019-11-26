@@ -7,29 +7,25 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.lang.NonNull;
 
 @Entity
 @Table(
     indexes = {
-        @Index(columnList = "dice_upgrade"),
-        @Index(columnList = "win_rate"),
-        @Index(columnList = "victory_points"),
-        @Index(columnList = "highest_score")
+        @Index(columnList = "diceUpgrade"),
+        @Index(columnList = "winRate"),
+        @Index(columnList = "victoryPoints"),
+        @Index(columnList = "highestScore")
     }
 )
 public class Player {
@@ -67,21 +63,13 @@ public class Player {
   // TODO Make these fields and add Column
   // TODO Make Column for User
 
-  @NonNull
-  @Column(nullable = false)
-  private String dice_upgrade;
+  private String diceUpgrade;
 
-  @NonNull
-  @Column(nullable = false)
-  private double win_rate;
+  private double winRate;
 
-  @NonNull
-  @Column(nullable = false)
-  private int victory_points;
+  private int victoryPoints;
 
-  @NonNull
-  @Column(nullable = false)
-  private int highest_score;
+  private int highestScore;
 
   @NonNull
   @Column(nullable = false)
@@ -127,39 +115,38 @@ public class Player {
     return gamesWon.size();
   }
 
-  @NonNull
-  public String getDice_upgrade() {
-    return dice_upgrade;
+  public String getDiceUpgrade() {
+    return diceUpgrade;
   }
 
-  public void setDice_upgrade(String dice_upgrade) {
-    this.dice_upgrade = dice_upgrade;
-  }
-
-  @NonNull
-  public double getWin_rate() {
-    return win_rate;
-  }
-
-  public void setWin_rate(double win_rate) {
-    this.win_rate = win_rate;
+  public void setDiceUpgrade(String diceUpgrade) {
+    this.diceUpgrade = diceUpgrade;
   }
 
   @NonNull
-  public int getVictory_points() {
-    return victory_points;
+  public double getWinRate() {
+    return winRate;
   }
 
-  public void setVictory_points(int victory_points) {
-    this.victory_points = victory_points;
+  public void setWinRate(double winRate) {
+    this.winRate = winRate;
   }
 
   @NonNull
-  public int getHighest_score() {
-    return highest_score;
+  public int getVictoryPoints() {
+    return victoryPoints;
   }
 
-  public void setHighest_score(int highest_score) {
-    this.highest_score = highest_score;
+  public void setVictoryPoints(int victoryPoints) {
+    this.victoryPoints = victoryPoints;
+  }
+
+  @NonNull
+  public int getHighestScore() {
+    return highestScore;
+  }
+
+  public void setHighestScore(int highestScore) {
+    this.highestScore = highestScore;
   }
 }

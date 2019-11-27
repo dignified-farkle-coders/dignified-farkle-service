@@ -30,10 +30,7 @@ public class GameController {
     this.repository = repository;
   }
 
-  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-  public List<Game> get(){
-    return repository.getAllBy();
-  }
+
 
   @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE,
       consumes = MediaType.APPLICATION_JSON_VALUE)

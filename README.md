@@ -40,3 +40,16 @@ you soon on the Farkle battlegrounds.
 * [ ] Customized dice
 * [ ] Tournaments
 * [ ] Player/die abilities
+
+## Technology Stacks
+
+Back End
+    - Apache Derby database
+    - Google API Client Libraries
+    - Spring Boot
+    - Google Sign-in Application
+    - JDK/JRE 1.8
+    
+    
+
+

@@ -1,9 +1,7 @@
 package io.farkle.dignifiedfarkleservice.controller;
 
-import io.farkle.dignifiedfarkleservice.model.dao.ActionRepository;
 import io.farkle.dignifiedfarkleservice.model.dao.PlayerRepository;
-import io.farkle.dignifiedfarkleservice.model.entity.Action;
-import io.farkle.dignifiedfarkleservice.model.entity.Players;
+import io.farkle.dignifiedfarkleservice.model.entity.Player;
 import java.util.List;
 import java.util.NoSuchElementException;
 import org.springframework.http.HttpStatus;
@@ -28,21 +26,16 @@ public class PlayerController {
   }
 
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-  public List<Players> get(){
+  public List<Player> get(){
     return repository.getAllBy();
   }
 
   @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE,
       consumes = MediaType.APPLICATION_JSON_VALUE)
-  public Players post(@RequestBody Players players) {
+  public Player post(@RequestBody Player player) {
     // TODO Validation
     // TODO Execute game logic
-    return repository.save(players);
-  }
-
-  @GetMapping(value = "{id:\\d+}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public Players get(@PathVariable long id) {
-    return repository.findById(id).get();
+    return repository.save(player);
   }
 
   @ResponseStatus(HttpStatus.NOT_FOUND)

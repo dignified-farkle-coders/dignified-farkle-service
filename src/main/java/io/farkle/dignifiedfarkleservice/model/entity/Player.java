@@ -1,6 +1,8 @@
 package io.farkle.dignifiedfarkleservice.model.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.farkle.dignifiedfarkleservice.view.FlatPlayer;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,7 +20,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.lang.NonNull;
-import org.springframework.web.bind.annotation.GetMapping;
 
 @Entity
 @Table(
@@ -29,7 +30,7 @@ import org.springframework.web.bind.annotation.GetMapping;
         @Index(columnList = "highestScore")
     }
 )
-public class Players {
+public class Player implements FlatPlayer {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -41,6 +42,15 @@ public class Players {
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = false, updatable = false)
   private Date created;
+
+  @NonNull
+  @Column(nullable = false, updatable = false, unique = true)
+  @JsonIgnore
+  private String oauthKey;
+
+  @NonNull
+  @Column(nullable = false)
+  private String displayName;
 
   @NonNull
   @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -64,12 +74,13 @@ public class Players {
 
   private int highestScore;
 
-  @NonNull
+  @Override
   @Column(nullable = false)
   public long getId() {
     return id;
   }
 
+  @Override
   @NonNull
   public Date getCreated() {
     return created;
@@ -81,15 +92,36 @@ public class Players {
   }
 
   @NonNull
+  public String getOauthKey() {
+    return oauthKey;
+  }
+
+  public void setOauthKey(@NonNull String oauthKey) {
+    this.oauthKey = oauthKey;
+  }
+
+  @Override
+  @NonNull
+  public String getDisplayName() {
+    return displayName;
+  }
+
+  public void setDisplayName(@NonNull String displayName) {
+    this.displayName = displayName;
+  }
+
+  @NonNull
   public List<Game> getGamesWon() {
     return gamesWon;
   }
 
+  @Override
   @NonNull
   public int getWinCount() {
     return gamesWon.size();
   }
 
+  @Override
   public String getDiceUpgrade() {
     return diceUpgrade;
   }
@@ -98,6 +130,7 @@ public class Players {
     this.diceUpgrade = diceUpgrade;
   }
 
+  @Override
   @NonNull
   public double getWinRate() {
     return winRate;
@@ -107,6 +140,7 @@ public class Players {
     this.winRate = winRate;
   }
 
+  @Override
   @NonNull
   public int getVictoryPoints() {
     return victoryPoints;
@@ -116,6 +150,7 @@ public class Players {
     this.victoryPoints = victoryPoints;
   }
 
+  @Override
   @NonNull
   public int getHighestScore() {
     return highestScore;

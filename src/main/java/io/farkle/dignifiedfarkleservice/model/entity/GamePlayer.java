@@ -1,5 +1,9 @@
 package io.farkle.dignifiedfarkleservice.model.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.farkle.dignifiedfarkleservice.view.FlatGame;
+import io.farkle.dignifiedfarkleservice.view.FlatGamePlayer;
+import io.farkle.dignifiedfarkleservice.view.FlatPlayer;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,7 +29,7 @@ import org.springframework.lang.NonNull;
     },
     indexes = @Index(columnList = "created")
 )
-public class GamePlayer {
+public class GamePlayer implements FlatGamePlayer {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -41,18 +45,21 @@ public class GamePlayer {
   @NonNull
   @ManyToOne(fetch = FetchType.EAGER, optional = false)
   @JoinColumn(name = "game_id", nullable = false, updatable = false)
+  @JsonSerialize(as = FlatGame.class)
   private Game game;
 
   @NonNull
   @ManyToOne(fetch = FetchType.EAGER, optional = false)
   @JoinColumn(name = "player_id", nullable = false, updatable = false)
-  private Players player;
+  @JsonSerialize(as = FlatPlayer.class)
+  private Player player;
 
   @Column(name = "order_of_play", nullable = false, updatable = false)
   private int order;
 
   private int points;
 
+  @Override
   public Long getId() {
     return gamePlayerId;
   }
@@ -65,14 +72,16 @@ public class GamePlayer {
     this.game = game;
   }
 
-  public Players getPlayer() {
+  @Override
+  public Player getPlayer() {
     return player;
   }
 
-  public void setPlayer(Players player) {
+  public void setPlayer(Player player) {
     this.player = player;
   }
 
+  @Override
   public int getOrder() {
     return order;
   }
@@ -81,6 +90,7 @@ public class GamePlayer {
     this.order = order;
   }
 
+  @Override
   public int getPoints() {
     return points;
   }

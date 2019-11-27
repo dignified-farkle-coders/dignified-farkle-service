@@ -1,5 +1,8 @@
 package io.farkle.dignifiedfarkleservice.model.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.farkle.dignifiedfarkleservice.view.FlatGame;
+import io.farkle.dignifiedfarkleservice.view.FlatGamePlayer;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,10 +27,10 @@ import org.springframework.lang.NonNull;
 @Entity
 @Table(
     indexes = {
-        @Index(columnList = "number_of_rounds")
+        @Index(columnList = "numberOfRounds")
     }
 )
-public class Game {
+public class Game implements FlatGame {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -40,46 +43,78 @@ public class Game {
   @Column(nullable = false, updatable = false)
   private Date created;
 
+  private int preferredNumPlayers;
+
   @NonNull
   @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
   @OrderBy("created ASC")
+  @JsonSerialize(contentAs = FlatGamePlayer.class)
   private List<GamePlayer> gamePlayers = new LinkedList<>();
 
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "winner_id")
-  private Players winner;
+  private Player winner;
 
   @NonNull
   @Column(nullable = false)
-  private int number_of_rounds;
+  private int numberOfRounds;
 
+  private State state = State.PENDING;
+
+  @Override
   public long getId() {
     return id;
   }
 
+  @Override
   @NonNull
   public Date getCreated() {
     return created;
+  }
+
+  @Override
+  public int getPreferredNumPlayers() {
+    return preferredNumPlayers;
+  }
+
+  public void setPreferredNumPlayers(int preferredNumPlayers) {
+    this.preferredNumPlayers = preferredNumPlayers;
   }
 
   public List<GamePlayer> getGamePlayers() {
     return gamePlayers;
   }
 
-  public Players getWinner() {
+  public Player getWinner() {
     return winner;
   }
 
-  public void setWinner(Players winner) {
+  public void setWinner(Player winner) {
     this.winner = winner;
   }
 
+  @Override
   public int getNumberOfRounds() {
-    return number_of_rounds;
+    return numberOfRounds;
   }
 
   public void setNumberOfRounds(int numberOfRounds) {
-    this.number_of_rounds = numberOfRounds;
+    this.numberOfRounds = numberOfRounds;
+  }
+
+  public State getState() {
+    return state;
+  }
+
+  public void setState(State state) {
+    this.state = state;
+  }
+
+  public enum State {
+    PENDING,
+    IN_PROGRESS,
+    COMPLETED,
+    ABANDONED;
   }
 
 

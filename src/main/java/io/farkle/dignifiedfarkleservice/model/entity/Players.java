@@ -18,6 +18,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.lang.NonNull;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Entity
 @Table(
@@ -28,7 +29,7 @@ import org.springframework.lang.NonNull;
         @Index(columnList = "highestScore")
     }
 )
-public class Player {
+public class Players {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -42,16 +43,8 @@ public class Player {
   private Date created;
 
   @NonNull
-  @Column(nullable = false, updatable = false, unique = true)
-  private String oauthKey;
-
-  @NonNull
-  @Column(nullable = false)
-  private String displayName;
-
-  @NonNull
   @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, orphanRemoval = true)
-  @OrderBy("join_time ASC")
+  @OrderBy("created ASC")
   private List<GamePlayer> gamePlayers = new LinkedList<>();
 
   @NonNull
@@ -85,24 +78,6 @@ public class Player {
   @NonNull
   public List<GamePlayer> getGamePlayers() {
     return gamePlayers;
-  }
-
-  @NonNull
-  public String getOauthKey() {
-    return oauthKey;
-  }
-
-  public void setOauthKey(@NonNull String oauthKey) {
-    this.oauthKey = oauthKey;
-  }
-
-  @NonNull
-  public String getDisplayName() {
-    return displayName;
-  }
-
-  public void setDisplayName(@NonNull String displayName) {
-    this.displayName = displayName;
   }
 
   @NonNull

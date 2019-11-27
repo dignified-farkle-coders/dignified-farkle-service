@@ -36,11 +36,11 @@ public class Action {
 
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "player_id")
-  private Player player;
+  private Players player;
 
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "next_player_id")
-  private Player nextPlayer;
+  private Players nextPlayer;
 
   @Column(name = "available")
   @Convert(converter = DiceArrayConverter.class)
@@ -69,15 +69,15 @@ public class Action {
     this.game = game;
   }
 
-  public Player getPlayer() {
+  public Players getPlayer() {
     return player;
   }
 
-  public void setPlayer(Player player) {
+  public void setPlayer(Players player) {
     this.player = player;
   }
 
-  public Player getNextPlayer() {
+  public Players getNextPlayer() {
     return nextPlayer;
   }
 

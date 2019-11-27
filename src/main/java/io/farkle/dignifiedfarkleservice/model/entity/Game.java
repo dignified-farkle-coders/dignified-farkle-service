@@ -47,7 +47,7 @@ public class Game {
 
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "winner_id")
-  private Player winner;
+  private Players winner;
 
   @NonNull
   @Column(nullable = false)
@@ -66,11 +66,11 @@ public class Game {
     return gamePlayers;
   }
 
-  public Player getWinner() {
+  public Players getWinner() {
     return winner;
   }
 
-  public void setWinner(Player winner) {
+  public void setWinner(Players winner) {
     this.winner = winner;
   }
 

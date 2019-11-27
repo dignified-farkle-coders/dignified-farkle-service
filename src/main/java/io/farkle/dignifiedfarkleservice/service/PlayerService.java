@@ -1,7 +1,7 @@
 package io.farkle.dignifiedfarkleservice.service;
 
 import io.farkle.dignifiedfarkleservice.model.dao.PlayerRepository;
-import io.farkle.dignifiedfarkleservice.model.entity.Player;
+import io.farkle.dignifiedfarkleservice.model.entity.Players;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ public class PlayerService {
     this.repository = repository;
   }
 
-  public Player getOrCreatePlayer(String oauthKey, String displayName) {
+  public Players getOrCreatePlayer(String oauthKey, String displayName) {
     return repository.getPlayerByOauthKey(oauthKey)
         .map(
             player -> {
@@ -24,7 +24,7 @@ public class PlayerService {
             }
         )
         .orElseGet(() -> {
-          Player player= new Player();
+          Players player= new Players();
           player.setOauthKey(oauthKey);
           player.setDisplayName(displayName);
           return repository.save(player);

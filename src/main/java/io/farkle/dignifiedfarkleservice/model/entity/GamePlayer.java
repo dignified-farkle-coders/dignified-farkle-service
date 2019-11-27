@@ -46,7 +46,7 @@ public class GamePlayer {
   @NonNull
   @ManyToOne(fetch = FetchType.EAGER, optional = false)
   @JoinColumn(name = "player_id", nullable = false, updatable = false)
-  private Player player;
+  private Players player;
 
   @Column(name = "order_of_play", nullable = false, updatable = false)
   private int order;
@@ -65,11 +65,11 @@ public class GamePlayer {
     this.game = game;
   }
 
-  public Player getPlayer() {
+  public Players getPlayer() {
     return player;
   }
 
-  public void setPlayer(Player player) {
+  public void setPlayer(Players player) {
     this.player = player;
   }
 

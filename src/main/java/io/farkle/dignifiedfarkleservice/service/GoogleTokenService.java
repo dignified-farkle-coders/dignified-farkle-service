@@ -6,7 +6,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import io.farkle.dignifiedfarkleservice.model.entity.Player;
+import io.farkle.dignifiedfarkleservice.model.entity.Players;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Collection;
@@ -55,7 +55,7 @@ public class GoogleTokenService implements ResourceServerTokenServices {
       GoogleIdToken idToken = verifier.verify(token);
       if (idToken != null) {
         Payload payload = idToken.getPayload();
-        Player player = playerService.getOrCreatePlayer(payload.getSubject(), (String) payload.get("name")); // TODO Get any additional info from Payload
+        Players player = playerService.getOrCreatePlayer(payload.getSubject(), (String) payload.get("name")); // TODO Get any additional info from Payload
         Collection<GrantedAuthority> grants =
             Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
         Authentication base =

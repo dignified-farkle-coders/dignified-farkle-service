@@ -1,6 +1,8 @@
 package io.farkle.dignifiedfarkleservice.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.farkle.dignifiedfarkleservice.view.FlatAction;
 import io.farkle.dignifiedfarkleservice.view.FlatGame;
 import io.farkle.dignifiedfarkleservice.view.FlatGamePlayer;
 import java.util.Date;
@@ -51,6 +53,12 @@ public class Game implements FlatGame {
   @JsonSerialize(contentAs = FlatGamePlayer.class)
   private List<GamePlayer> gamePlayers = new LinkedList<>();
 
+  @NonNull
+  @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
+  @OrderBy("created ASC")
+  @JsonIgnore
+  private List<Action> actions = new LinkedList<>();
+
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "winner_id")
   private Player winner;
@@ -85,6 +93,11 @@ public class Game implements FlatGame {
     return gamePlayers;
   }
 
+  @NonNull
+  public List<Action> getActions() {
+    return actions;
+  }
+
   public Player getWinner() {
     return winner;
   }
@@ -108,6 +121,10 @@ public class Game implements FlatGame {
 
   public void setState(State state) {
     this.state = state;
+  }
+
+  public FlatAction getLastAction(){
+    return (actions.size() > 0) ? actions.get(actions.size() - 1) : null;
   }
 
   public enum State {

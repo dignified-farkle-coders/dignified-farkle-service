@@ -8,6 +8,9 @@ public class DiceArrayConverter implements AttributeConverter<int[], Integer> {
 
   @Override
   public Integer convertToDatabaseColumn(int[] dice) {
+    if (dice == null) {
+      return null;
+    }
     int multiplier = 1;
     int sum = 0;
     for (int die : dice) {

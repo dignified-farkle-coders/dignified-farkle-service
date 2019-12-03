@@ -1,12 +1,17 @@
 package io.farkle.dignifiedfarkleservice.controller;
 
 import io.farkle.dignifiedfarkleservice.model.dao.GameRepository;
+import io.farkle.dignifiedfarkleservice.model.entity.Action;
 import io.farkle.dignifiedfarkleservice.model.entity.Game;
 import io.farkle.dignifiedfarkleservice.model.entity.Game.State;
 import io.farkle.dignifiedfarkleservice.model.entity.GamePlayer;
 import io.farkle.dignifiedfarkleservice.model.entity.Player;
 import io.farkle.dignifiedfarkleservice.model.pojo.GamePreference;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.NoSuchElementException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -35,11 +40,18 @@ public class GameController {
     return repository.getAllBy();
   }
 
+  @GetMapping(value = "{id:\\d+}/action", produces = MediaType.APPLICATION_JSON_VALUE)
+  public Action getLastAction(@PathVariable long id, Authentication authentication) {
+    List<Action> actions = get(id, authentication).getActions();
+    return actions.get(actions.size() - 1);
+  }
+
   @PostMapping(value = "join", produces = MediaType.APPLICATION_JSON_VALUE,
       consumes = MediaType.APPLICATION_JSON_VALUE)
   public Game join(@RequestBody GamePreference preference, Authentication authentication) {
     Player player = (Player) authentication.getPrincipal();
-    Game game = repository.findFirstByStateAndPreferredNumPlayers(State.PENDING, preference.getNumPlayers())
+    Game game = repository
+        .findFirstByStateAndPreferredNumPlayers(State.PENDING, preference.getNumPlayers())
         .orElseGet(() -> {
           Game g = new Game();
           g.setPreferredNumPlayers(preference.getNumPlayers());
@@ -50,17 +62,41 @@ public class GameController {
         throw new IllegalArgumentException();
       }
     }
+
+//    action.setGame(game);
+//    action.setAvailableDice(new int[]{1, 2, 3});
+//    action.setFrozenDice(new int[]{2, 2, 2});
+//    action.setGame(game);
+
     GamePlayer gamePlayer = new GamePlayer();
     gamePlayer.setGame(game);
     gamePlayer.setPlayer(player);
     game.getGamePlayers().add(gamePlayer);
-    // TODO If gamePlayers.size = preferredNumPlayers then start game.
+    if (game.getGamePlayers().size() == preference.getNumPlayers()) {
+      Action action = new Action();
+      action.setGame(game);
+      action.setAvailableDice(new int[]{1, 2, 3, 4, 5, 6}); // throw random
+      action.setNextPlayer(game.getGamePlayers().get(0).getPlayer());
+      game.getActions().add(action);
+      // This line breaks the program but I feel like I need it.
+      //ERROR: Could not commit JPA transaction; nested exception is javax.
+//      game.getActions().(actions);
+//      System.out.println("GameID: " + action.getGame().getId());
+//      System.out.println("Display Name: " + action.getPlayer().getDisplayName());
+//      System.out.println(Arrays.toString(action.getAvailableDice()));
+      // TODO If gamePlayers.size = preferredNumPlayers then start game.
+      game.setState(State.IN_PROGRESS);
+      System.out.println("GamePlayerID: " + gamePlayer.getId());
+      System.out.println();
+
+    }
     return repository.save(game);
   }
 
   @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE,
       consumes = MediaType.APPLICATION_JSON_VALUE)
   public Game post(@RequestBody Game game) {
+
     // TODO Validation
     // TODO Execute game logic
     return repository.save(game);

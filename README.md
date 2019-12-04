@@ -43,12 +43,18 @@ you soon on the Farkle battlegrounds.
 
 ## Technology Stacks
 
-Back End
+Back and Front End 
     - Apache Derby database
     - Google API Client Libraries
+    - Retrofit 
     - Spring Boot
     - Google Sign-in Application
     - JDK/JRE 1.8
+    - ReactiveX
+    - Jackson 
+    
+    
+     
     
     
 

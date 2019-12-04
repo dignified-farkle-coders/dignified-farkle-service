@@ -6,3 +6,4 @@
  
 ## Above are the repositories to Farkle 
         
+Google account required to play game. 

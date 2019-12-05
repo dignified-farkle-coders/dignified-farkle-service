@@ -86,6 +86,7 @@ public class GameController {
 //      System.out.println(Arrays.toString(action.getAvailableDice()));
       // TODO If gamePlayers.size = preferredNumPlayers then start game.
       game.setState(State.IN_PROGRESS);
+      game.setYourTurn(game.getLastAction().getNextPlayer().getId() == player.getId());
       System.out.println("GamePlayerID: " + gamePlayer.getId());
       System.out.println();
 
@@ -93,26 +94,35 @@ public class GameController {
     return repository.save(game);
   }
 
-  @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE,
-      consumes = MediaType.APPLICATION_JSON_VALUE)
-  public Game post(@RequestBody Game game) {
-
-    // TODO Validation
-    // TODO Execute game logic
-    return repository.save(game);
-  }
-
   @GetMapping(value = "{id:\\d+}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Game get(@PathVariable long id, Authentication auth) {
-    Player players = (Player) auth.getPrincipal();
+    Player player = (Player) auth.getPrincipal();
     Game game = repository.findById(id).get();
     List<GamePlayer> gamePlayers = game.getGamePlayers();
     for (GamePlayer gamePlayer : gamePlayers) {
-      if (gamePlayer.getPlayer().getId() == players.getId()) {
+      if (gamePlayer.getPlayer().getId() == player.getId()) {
+        game.setYourTurn(game.getLastAction().getNextPlayer().getId() == player.getId());
         return game;
       }
     }
     throw new NoSuchElementException();
+  }
+
+  @PostMapping(value = "{id:\\d+}/actions", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  public Game post(@PathVariable long id, @RequestBody Action action, Authentication auth) {
+    Player player = (Player) auth.getPrincipal();
+    Game game = get(id, auth);
+    if (!game.isYourTurn()) {
+      throw new IllegalArgumentException();
+    }
+    // TODO Validate and Process
+    int turn = game.getLastAction().getTurn() + 1;
+    action.setTurn(turn);
+    action.setGame(game);
+    action.setPlayer(player);
+    game.getActions().add(action);
+    return repository.save(game);
+
   }
 
   @ResponseStatus(HttpStatus.NOT_FOUND)
@@ -120,9 +130,9 @@ public class GameController {
   public void notFound() {
   }
 
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
-  @ExceptionHandler(IllegalArgumentException.class)
-  public void notAllowed() {
-  }
+//  @ResponseStatus(HttpStatus.BAD_REQUEST)
+//  @ExceptionHandler(IllegalArgumentException.class)
+//  public void notAllowed() {
+//  }
 
 }

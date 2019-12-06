@@ -32,7 +32,7 @@ public class PointTally {
           amounts[2] = threes;
         }
         if (keeper == 4) {
-          fours += 1;2
+          fours += 1;
           amounts[3] = fours;
         }
         if (keeper == 5) {

@@ -20,6 +20,8 @@ public interface FlatAction {
   @JsonSerialize(as = FlatPlayer.class)
   Player getNextPlayer();
 
+  boolean getStay();
+
   int[] getAvailableDice();
 
   int[] getFrozenDice();

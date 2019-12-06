@@ -1,5 +1,6 @@
 package io.farkle.dignifiedfarkleservice.model.convert;
 
+import java.util.Arrays;
 import javax.persistence.AttributeConverter;
 
 public class DiceArrayConverter implements AttributeConverter<int[], Integer> {
@@ -27,13 +28,17 @@ public class DiceArrayConverter implements AttributeConverter<int[], Integer> {
     }
     int quotient = value;
     int numDice = (int) Math.ceil(Math.log(quotient) / Math.log(BASE));
+    System.out.println("Number of Dice" + numDice);
     int[] dice = new int[numDice];
     int counter = 0;
     while (quotient != 0) {
       int remainder = quotient % BASE;
       quotient /= BASE;
-      dice[counter++] = remainder;
+      try {
+        dice[counter++] = remainder;
+      } catch (Exception ignore){}
     }
+    System.out.println("RETURN " + Arrays.toString(dice));
     return dice;
   }
 }

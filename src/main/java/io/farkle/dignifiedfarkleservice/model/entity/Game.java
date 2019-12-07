@@ -23,6 +23,7 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.lang.NonNull;
 
@@ -46,6 +47,9 @@ public class Game implements FlatGame {
   private Date created;
 
   private int preferredNumPlayers;
+
+  @Transient
+  private boolean yourTurn;
 
   @NonNull
   @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -87,6 +91,14 @@ public class Game implements FlatGame {
 
   public void setPreferredNumPlayers(int preferredNumPlayers) {
     this.preferredNumPlayers = preferredNumPlayers;
+  }
+
+  public boolean isYourTurn() {
+    return yourTurn;
+  }
+
+  public void setYourTurn(boolean yourTurn) {
+    this.yourTurn = yourTurn;
   }
 
   public List<GamePlayer> getGamePlayers() {

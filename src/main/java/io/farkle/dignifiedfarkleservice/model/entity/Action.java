@@ -26,7 +26,7 @@ public class Action implements FlatAction {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "action_id", updatable = false, nullable = false)
-  private long actionId;
+  private Long id;
 
   @NonNull
   @CreationTimestamp
@@ -63,8 +63,10 @@ public class Action implements FlatAction {
 
   private int turn;
 
-  public long getActionId() {
-    return actionId;
+
+  @Override
+  public Long getId() {
+    return id;
   }
 
   @NonNull

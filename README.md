@@ -58,6 +58,13 @@ Back and Front End
     - Https
     - JVM
     
+
+## Java Documentation 
+
+
+
+file:///Applications/IntelliJ%20IDEA.app/Contents/bin/%20-bootclasspath%20/Library/Java/JavaVirtualMachines/amazon-corretto-8.jdk/Contents/Home/jre/lib/rt.jar:/opt/android/sdk/platforms/android-21/android.jar%20-link%20https:/docs.oracle.com/javase/8/docs/api/%20-link%20https:/square.github.io/retrofit/2.x/retrofit/%20-link%20http:/reactivex.io/RxJava/javadoc/%20-linkoffline%20http:/developer.android.com/reference/%20/opt/android/sdk/docs/reference%20-windowtitle%20%22Farkle%22/index.html
+    
     
  
   License

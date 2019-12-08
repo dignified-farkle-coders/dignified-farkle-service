@@ -7,6 +7,10 @@ import io.farkle.dignifiedfarkleservice.model.entity.Game.State;
 import io.farkle.dignifiedfarkleservice.model.entity.GamePlayer;
 import io.farkle.dignifiedfarkleservice.model.entity.Player;
 import io.farkle.dignifiedfarkleservice.model.pojo.GamePreference;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -28,7 +32,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("games")
+@RequestMapping("/games")
+@Api(value = "GameControllerAPI", produces = MediaType.APPLICATION_JSON_VALUE)
 public class GameController {
 
   private final GameRepository repository;
@@ -42,12 +47,17 @@ public class GameController {
     return repository.getAllBy();
   }
 
+
+  @ApiOperation("id actions")
+  @ApiResponses( value =  {@ApiResponse(code = 200, message = "Ok" , response = Game.class)})
   @GetMapping(value = "{id:\\d+}/action", produces = MediaType.APPLICATION_JSON_VALUE)
   public Action getLastAction(@PathVariable long id, Authentication authentication) {
     List<Action> actions = get(id, authentication).getActions();
     return actions.get(actions.size() - 1);
   }
 
+  @ApiOperation("join")
+  @ApiResponses( value =  {@ApiResponse(code = 200, message = "Ok" , response = Game.class)})
   @PostMapping(value = "join", produces = MediaType.APPLICATION_JSON_VALUE,
       consumes = MediaType.APPLICATION_JSON_VALUE)
   public Game join(@RequestBody GamePreference preference, Authentication authentication) {
@@ -66,10 +76,7 @@ public class GameController {
       }
     }
 
-//    action.setGame(game);
-//    action.setAvailableDice(new int[]{1, 2, 3});
-//    action.setFrozenDice(new int[]{2, 2, 2});
-//    action.setGame(game);
+
 
     GamePlayer gamePlayer = new GamePlayer();
     gamePlayer.setGame(game);
@@ -85,12 +92,7 @@ public class GameController {
       action.setAvailableDice(availableDiceArray);
       action.setNextPlayer(game.getGamePlayers().get(0).getPlayer());
       game.getActions().add(action);
-      // This line breaks the program but I feel like I need it.
-      //ERROR: Could not commit JPA transaction; nested exception is javax.
-//      game.getActions().(actions);
-//      System.out.println("GameID: " + action.getGame().getId());
-//      System.out.println("Display Name: " + action.getPlayer().getDisplayName());
-//      System.out.println(Arrays.toString(action.getAvailableDice()));
+
       // TODO If gamePlayers.size = preferredNumPlayers then start game.
       game.setState(State.IN_PROGRESS);
       game.setYourTurn(game.getLastAction().getNextPlayer().getId() == player.getId());
@@ -101,6 +103,9 @@ public class GameController {
     return repository.save(game);
   }
 
+
+  @ApiOperation("ids")
+  @ApiResponses( value =  {@ApiResponse(code = 200, message = "Ok" , response = Game.class)})
   @GetMapping(value = "{id:\\d+}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Game get(@PathVariable long id, Authentication auth) {
     Player player = (Player) auth.getPrincipal();
@@ -115,6 +120,8 @@ public class GameController {
     throw new NoSuchElementException();
   }
 
+  @ApiOperation("ids action")
+  @ApiResponses( value =  {@ApiResponse(code = 200, message = "Ok" , response = Game.class)})
   @PostMapping(value = "{id:\\d+}/actions", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public Game post(@PathVariable long id, @RequestBody Action action, Authentication auth) {
     Player player = (Player) auth.getPrincipal();
@@ -129,7 +136,6 @@ public class GameController {
 
     int[] frozenDice = action.getFrozenDice();
     System.out.println("Length Frozen:" + frozenDice.length);
-//    refactoredFrozenDice = new int[sumDice];
     ArrayList<Integer> refactoredFrozenDice = new ArrayList<>();
     for (int i = 0; i < action.getFrozenDice().length; i++) {
       if (frozenDice[i] != 0) {
@@ -170,7 +176,7 @@ public class GameController {
     action.setGame(game);
     action.setPlayer(player);
 
-//    action.setFrozenDice(game.getLastAction().getFrozenDice());
+
     game.getActions().add(action);
     return repository.save(game);
 
@@ -181,9 +187,6 @@ public class GameController {
   public void notFound() {
   }
 
-//  @ResponseStatus(HttpStatus.BAD_REQUEST)
-//  @ExceptionHandler(IllegalArgumentException.class)
-//  public void notAllowed() {
-//  }
+
 
 }

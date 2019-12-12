@@ -1,6 +1,5 @@
 package io.farkle.dignifiedfarkleservice.controller;
 
-import io.farkle.dignifiedfarkleservice.model.PointTally;
 import io.farkle.dignifiedfarkleservice.model.dao.GameRepository;
 import io.farkle.dignifiedfarkleservice.model.entity.Action;
 import io.farkle.dignifiedfarkleservice.model.entity.Game;
@@ -124,19 +123,13 @@ public class GameController {
     int sumDice = 0;
 
     Game game = get(id, auth);
-    List<GamePlayer> gamePlayers = game.getGamePlayers();
-
-
-
     if (!game.isYourTurn()) {
       throw new IllegalArgumentException();
     }
 
     int[] frozenDice = action.getFrozenDice();
     System.out.println("Length Frozen:" + frozenDice.length);
-
-    System.out.println("FrozenDice:" + Arrays.toString(frozenDice));
-
+//    refactoredFrozenDice = new int[sumDice];
     ArrayList<Integer> refactoredFrozenDice = new ArrayList<>();
     for (int i = 0; i < action.getFrozenDice().length; i++) {
       if (frozenDice[i] != 0) {
@@ -145,29 +138,21 @@ public class GameController {
       }
     }
 
-    int roundPoints = PointTally.DiceTally(refactoredFrozenDice);
-    System.out.println("Round Points:" + roundPoints);
+    System.out.println("Number of Frozen Dice" + sumDice);
+    System.out.println("Refactord " + refactoredFrozenDice);
 
-    for (GamePlayer gamePlayer : gamePlayers) {
-      if (gamePlayer.getPlayer().getId() == player.getId()) {
-        gamePlayer.setPoints(roundPoints);
-//        game.
-      }
-      System.out.println("PlayerPoints " + gamePlayer.getPoints());
-    }
-
-
-
-
+    System.out.println("Stay? " + game.getLastAction().getStay());
     if (!action.getStay()){
-    for (int i = 0; i < refactoredFrozenDice.size(); i++) {
-      diceSendBack = frozenDice.length - refactoredFrozenDice.size();
-    }
+      for (int i = 0; i < refactoredFrozenDice.size(); i++) {
+        diceSendBack = frozenDice.length - refactoredFrozenDice.size();
+      }
     } else {
       action.setPlayer(game.getLastAction().getNextPlayer());
       game.getLastAction().getNextPlayer();
       diceSendBack = 6;
     }
+
+    System.out.println("SendBack " + diceSendBack);
 
     int[] sendBackRandomDice = new int[diceSendBack];
 

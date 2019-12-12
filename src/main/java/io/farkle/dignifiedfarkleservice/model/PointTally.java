@@ -1,10 +1,11 @@
 package io.farkle.dignifiedfarkleservice.model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class PointTally {
 
-  public static int DiceTally(int[] keepers){
+  public static int DiceTally(ArrayList<Integer> refactoredFrozen){
     int ones = 0;
     int twos = 0;
     int threes = 0;
@@ -15,8 +16,14 @@ public class PointTally {
     int pairs = 0;
     int straight = 0;
     int talliedDice = 0;
+    int[] keepers = new int[refactoredFrozen.size()];
     int n = keepers.length - 1;
     int[] amounts = new int[6];
+
+    for (int i = 0; i < keepers.length; i++) {
+      keepers[i] = refactoredFrozen.get(i);
+    }
+
     if (keepers[n] != 0){
       for (int keeper : keepers) {
         if (keeper == 1) {
@@ -45,6 +52,8 @@ public class PointTally {
         }
       }
     }
+
+    System.out.println("AMOUNTS: " + Arrays.toString(amounts));
 
     // Calculates ones and fives
     if (amounts[0] == 1) {

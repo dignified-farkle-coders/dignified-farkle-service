@@ -133,11 +133,10 @@ public class PointTally {
       return 1;
     }
     if(pointValue == 0) {
-      return 3;
+      return pointValue + 3;
     }
-    if ((talliedDice == keepers.length) && (pointValue == 0)) {
-      return 0;
-    }else return 2;
+
+    return 2;
 
   }
 

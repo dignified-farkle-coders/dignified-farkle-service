@@ -57,6 +57,12 @@ public class Game implements FlatGame {
   @JsonSerialize(contentAs = FlatGamePlayer.class)
   private List<GamePlayer> gamePlayers = new LinkedList<>();
 
+//  @NonNull
+//  @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
+//  @OrderBy("created ASC")
+//  @JsonSerialize(contentAs = FlatGamePlayer.class)
+//  private GamePlayer gamePlayer;
+
   @NonNull
   @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
   @OrderBy("created ASC")
@@ -104,6 +110,10 @@ public class Game implements FlatGame {
   public List<GamePlayer> getGamePlayers() {
     return gamePlayers;
   }
+
+//  public GamePlayer getGamePlayer() {
+//    return gamePlayer;
+//  }
 
   @NonNull
   public List<Action> getActions() {

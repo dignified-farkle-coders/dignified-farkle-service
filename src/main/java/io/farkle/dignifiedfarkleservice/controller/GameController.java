@@ -1,5 +1,6 @@
 package io.farkle.dignifiedfarkleservice.controller;
 
+import io.farkle.dignifiedfarkleservice.model.PointTally;
 import io.farkle.dignifiedfarkleservice.model.dao.GameRepository;
 import io.farkle.dignifiedfarkleservice.model.entity.Action;
 import io.farkle.dignifiedfarkleservice.model.entity.Game;
@@ -8,11 +9,7 @@ import io.farkle.dignifiedfarkleservice.model.entity.GamePlayer;
 import io.farkle.dignifiedfarkleservice.model.entity.Player;
 import io.farkle.dignifiedfarkleservice.model.pojo.GamePreference;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.NoSuchElementException;
 import java.util.Random;
 import org.springframework.http.HttpStatus;
@@ -80,18 +77,13 @@ public class GameController {
       Action action = new Action();
       action.setGame(game);
       for (int i = 0; i < availableDiceArray.length; i++) {
-        availableDiceArray[i] = rnd.nextInt(5) + 1;
+        availableDiceArray[i] = rnd.nextInt(6) + 1;
       }
+
       action.setAvailableDice(availableDiceArray);
       action.setNextPlayer(game.getGamePlayers().get(0).getPlayer());
       game.getActions().add(action);
-      // This line breaks the program but I feel like I need it.
-      //ERROR: Could not commit JPA transaction; nested exception is javax.
-//      game.getActions().(actions);
-//      System.out.println("GameID: " + action.getGame().getId());
-//      System.out.println("Display Name: " + action.getPlayer().getDisplayName());
-//      System.out.println(Arrays.toString(action.getAvailableDice()));
-      // TODO If gamePlayers.size = preferredNumPlayers then start game.
+
       game.setState(State.IN_PROGRESS);
       game.setYourTurn(game.getLastAction().getNextPlayer().getId() == player.getId());
       System.out.println("GamePlayerID: " + gamePlayer.getId());
@@ -137,6 +129,14 @@ public class GameController {
         sumDice = sumDice + 1;
       }
     }
+    List<GamePlayer> gamePlayers = game.getGamePlayers();
+    for (GamePlayer gamePlayer : gamePlayers) {
+      if (gamePlayer.getPlayer().getId() == player.getId()) {
+        gamePlayer.setPoints(gamePlayer.getPoints() + PointTally.DiceTally(refactoredFrozenDice));
+        System.out.println("DONE: " + PointTally.DiceTally(refactoredFrozenDice));
+      }
+    }
+
 
     System.out.println("Number of Frozen Dice" + sumDice);
     System.out.println("Refactord " + refactoredFrozenDice);
@@ -152,15 +152,42 @@ public class GameController {
       diceSendBack = 6;
     }
 
+    if(frozenDice.length - refactoredFrozenDice.size() == 0) {
+      diceSendBack = 6;
+    }
+
     System.out.println("SendBack " + diceSendBack);
 
     int[] sendBackRandomDice = new int[diceSendBack];
 
     for (int i = 0; i < sendBackRandomDice.length; i++) {
-      sendBackRandomDice[i] = rnd.nextInt(5) + 1;
+      sendBackRandomDice[i] = rnd.nextInt(6) + 1;
     }
 
-    action.setAvailableDice(sendBackRandomDice);
+    ArrayList<Integer> refactoredSendBackRandomDice = new ArrayList<>();
+
+    for (int i = 0; i < sendBackRandomDice.length; i++) {
+      refactoredSendBackRandomDice.add(sendBackRandomDice[i]);
+    }
+
+
+    int sendBackTest = PointTally.DiceTally(refactoredSendBackRandomDice);
+    if(sendBackTest == 3) {
+      action.setFarkleOut(true);
+      for (GamePlayer gamePlayer : gamePlayers) {
+        if (gamePlayer.getPlayer().getId() == player.getId()) {
+          gamePlayer.setPoints(gamePlayer.getPoints() - 3 - gamePlayer.getPoints());
+        }
+      }
+    }
+    if(sendBackRandomDice.length != 0) {
+      action.setAvailableDice(sendBackRandomDice);
+    } else {
+      for (int i = 0; i < 6; i++) {
+        sendBackRandomDice[i] = rnd.nextInt(6) + 1;
+      }
+      action.setAvailableDice(sendBackRandomDice);
+    }
 
     action.setNextPlayer(player); // FIXME Should be a ternary, based on whether current player farkled out, ended play, or is continuing
 

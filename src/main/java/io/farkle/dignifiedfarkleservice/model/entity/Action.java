@@ -61,6 +61,8 @@ public class Action implements FlatAction {
 
   private boolean stay;
 
+  private boolean farkleOut;
+
   private int turn;
 
 
@@ -120,6 +122,14 @@ public class Action implements FlatAction {
 
   public void setStay(boolean stay) {
     this.stay = stay;
+  }
+
+  public boolean getFarkleOut() {
+    return farkleOut;
+  }
+
+  public void setFarkleOut(boolean farkleOut) {
+    this.farkleOut = farkleOut;
   }
 
   public int getTurn() {

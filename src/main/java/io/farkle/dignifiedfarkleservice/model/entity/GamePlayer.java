@@ -1,7 +1,6 @@
 package io.farkle.dignifiedfarkleservice.model.entity;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.farkle.dignifiedfarkleservice.view.FlatAction;
 import io.farkle.dignifiedfarkleservice.view.FlatGame;
 import io.farkle.dignifiedfarkleservice.view.FlatGamePlayer;
 import io.farkle.dignifiedfarkleservice.view.FlatPlayer;
@@ -99,4 +98,5 @@ public class GamePlayer implements FlatGamePlayer {
   public void setPoints(int points) {
     this.points = points;
   }
+
 }
